@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja" class="scroll-smooth">
 <head>
-  <meta name="robots" content="noindex, nofollow">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Japan Visa & Life Support Navi | 高度人材・デジタルノマド支援</title>
@@ -111,8 +110,7 @@
                 <a href="#comparison" class="text-gray-600 hover:text-accent transition">ビザ比較</a>
                 <a href="#city-explorer" class="text-gray-600 hover:text-accent transition">居住地を探す</a>
                 <a href="#life-support" class="text-gray-600 hover:text-accent transition">生活サポート</a>
-                <a href="blog.generated.html" class="text-gray-600 hover:text-accent transition">活動報告</a>
-<a href="#survey" class="text-gray-600 hover:text-accent transition">アンケート</a>
+                <a href="#about" class="text-gray-600 hover:text-accent transition">私たちについて</a>
                 <a href="blog.html" class="text-gray-600 hover:text-accent transition">活動報告</a>
             </div>
             <img src="images/logo.avif" alt="MOSHIMOSHI" class="h-8 md:h-10">
@@ -125,8 +123,7 @@
             <a href="#comparison" class="block text-center py-3 px-4 text-gray-700 hover:bg-gray-100">ビザ比較</a>
             <a href="#city-explorer" class="block text-center py-3 px-4 text-gray-700 hover:bg-gray-100">居住地を探す</a>
             <a href="#life-support" class="block text-center py-3 px-4 text-gray-700 hover:bg-gray-100">生活サポート</a>
-            <a href="blog.generated.html" class="block text-center py-3 px-4 text-gray-700 hover:bg-gray-100">活動報告</a>
-<a href="#survey" class="block text-center py-3 px-4 text-gray-700 hover:bg-gray-100">アンケート</a>
+            <a href="#about" class="block text-center py-3 px-4 text-gray-700 hover:bg-gray-100">私たちについて</a>
                 <a href="blog.html" class="text-gray-600 hover:text-accent transition">活動報告</a>
             
         </div>
@@ -390,17 +387,6 @@
   </div>
 </section>
 
-
-<section id="survey" class="py-16 bg-secondary">
-  <div class="container mx-auto max-w-3xl px-6 bg-white p-6 rounded-lg shadow">
-    <img src="images/sakura_banner.jpg" alt="MOSHIMOSHI Banner" class="w-full rounded-lg shadow mb-6">
-    <div class="rounded overflow-hidden shadow">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeBkd2XbaYaz30n9vv-4oUNYZfJhgYafMfgyCX-XvIjvwXIcg/viewform?embedded=true"
-        width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
-    </div>
-  </div>
-</section>
-
 <footer id="contact" class="bg-gray-800 text-white">
         <div class="container mx-auto px-6 py-12">
             
@@ -427,10 +413,19 @@
             </div>
         </div>
     
-
-
-
-
+<section id="survey" class="bg-secondary py-12">
+  <div class="container mx-auto max-w-3xl px-6 bg-white p-6 rounded-lg shadow">
+    <h3 class="text-2xl font-bold text-center mb-4">📋 ご意見・ご要望アンケート</h3>
+    <p class="text-center text-gray-600 mb-6 text-sm">
+      このサイトに関するご感想・ご意見・ご要望があればお聞かせください。<br>
+      個別の返信は行っておりませんが、今後の改善の参考にさせていただきます。
+    </p>
+    <form>
+      <textarea class="w-full border rounded-md p-3 h-40 mb-4 text-sm" placeholder="ご自由にご記入ください..."></textarea>
+      <button type="submit" class="btn btn-primary w-full">送信する（返信は行いません）</button>
+    </form>
+  </div>
+</section>
 
 </footer>
     <script>
@@ -448,7 +443,16 @@
             age: { '15': 15, '10': 10, '5': 5, '0': 0 }
         };
 
-        
+        const visaComparisonData = [
+            { item: '主な対象者', hsp: '日本国内の企業等と雇用契約等を結ぶ、高度な専門職・経営者。', nomad: '日本国外の企業等との契約に基づき、リモートで業務を行うワーカー。', hint: '雇用主が日本国内か海外かが最大の分岐点。' },
+            { item: '在留期間', hsp: '<strong>5年</strong> (1号) / <strong>無期限</strong> (2号)', nomad: '<strong>6ヶ月</strong>（更新は不可。出国後6ヶ月経てば再申請可能）', hint: '長期的な滞在や日本への定住を目指すならHSP。まずはお試しで滞在してみたいならデジタルノマド。' },
+            { item: '永住権への道', hsp: '<strong>最短1年</strong> (80点以上) または <strong>3年</strong> (70点以上) で申請資格を得られる。', nomad: '<strong>なし</strong>。このビザでの滞在は永住許可の居住歴に算入されない。', hint: '日本に永住したい、という強い希望があるならHSP一択。' },
+            { item: '就労の自由度', hsp: '<strong>低い</strong>。許可された所属機関での活動に限定される。転職時はビザの再申請が必須。', nomad: '<strong>高い</strong>。海外のクライアントであれば自由に仕事ができる。', hint: '自由な働き方を維持したいフリーランスはデジタルノマド。一つの企業で安定したキャリアを築きたいならHSP。' },
+            { item: '収入要件', hsp: 'ポイント計算上、最低でも<strong>年収300万円以上</strong>が必要。高年収ほど高ポイント。', nomad: '<strong>年収1,000万円以上</strong>が絶対条件。', hint: '年収が非常に高い場合は両方の選択肢があるが、300万～1,000万円未満の層はHSPが主対象。' },
+            { item: '家族帯同', hsp: '配偶者、子が可能。さらに一定の条件下で<strong>親</strong>や<strong>家事使用人</strong>も帯同可能。', nomad: '配偶者、子のみ。', hint: '親のサポート（育児など）を必要とする場合はHSPが必須。' },
+            { item: '配偶者の就労', hsp: '一定の条件下で<strong>フルタイム就労が可能</strong>。', nomad: '<strong>原則として不可</strong>。資格外活動許可も認められない。', hint: '夫婦共働きを希望する、または配偶者のキャリアも重視するならHSP。' },
+            { item: '行政手続き', hsp: '<strong>在留カードが交付</strong>され、<strong>住民登録</strong>が可能。社会保障に加入。', nomad: '<strong>在留カードは不交付</strong>。<strong>住民登録は不可</strong>。国民健康保険にも加入できない。', hint: '生活基盤の安定と行政サービスを重視するならHSP。身軽さを取るならデジタルノマドだが、相応の不便は覚悟が必要。' }
+        ];
 
         const supportMatrix = {
             housing_guarantor: {
@@ -811,31 +815,5 @@
     </script>
 
 <script src="main.js"></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const menuButton = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.getElementById("mobile-menu");
-
-  if (menuButton && mobileMenu) {
-    menuButton.addEventListener("click", function () {
-      if (mobileMenu.classList.contains("hidden")) {
-        mobileMenu.classList.remove("hidden");
-      } else {
-        mobileMenu.classList.add("hidden");
-      }
-    });
-
-    // モバイルメニュー内のリンクをクリックしたら閉じる
-    const menuLinks = mobileMenu.querySelectorAll("a");
-    menuLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        mobileMenu.classList.add("hidden");
-      });
-    });
-  }
-});
-</script>
-
 </body>
 </html>
