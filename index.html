@@ -1,61 +1,719 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <title>Hero Multilang Demo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      font-family: sans-serif;
-      background-color: #fdfbf8;
-      color: #333;
-    }
-  </style>
+  <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japan Visa & Life Support Navi | 高度人材・デジタルノマド支援</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #FDFBF8;
+            color: #383838;
+        }
+        .bg-primary { background-color: #FDFBF8; }
+        .bg-secondary { background-color: #F5F1EB; }
+        .bg-accent { background-color: #008080; }
+        .text-accent { color: #008080; }
+        .border-accent { border-color: #008080; }
+        .btn {
+            display: inline-block;
+            font-weight: 700;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid transparent;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-primary {
+            background-color: #008080;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #006666;
+        }
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            text-align: center;
+            line-height: 1.8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .tab-button {
+            transition: all 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+        .tab-button.active {
+            border-color: #008080;
+            color: #008080;
+            font-weight: 700;
+        }
+        .tooltip {
+            position: absolute;
+            background-color: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            z-index: 10;
+            width: max-content;
+            max-width: 250px;
+            bottom: 105%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+        .tooltip-trigger:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
 </head>
-<body>
-  <header class="bg-white shadow p-4 flex justify-between items-center">
-    <h1 class="text-xl font-bold text-teal-600">MOSHIMOSHI</h1>
-    <div class="flex space-x-4">
-      <button onclick="switchLanguage('en')" class="text-gray-600 hover:text-teal-600">English</button>
-      <span>|</span>
-      <button onclick="switchLanguage('ja')" class="text-gray-600 hover:text-teal-600">日本語</button>
-    </div>
-  </header>
+<body class="bg-primary">
 
-  <main class="max-w-3xl mx-auto py-20 px-6">
-    <h2 class="text-3xl font-bold text-center mb-6">
-      <span lang="en">Supporting your journey in Japan — from visas to life.</span>
-      <span lang="ja" style="display: none;">あなたの日本での挑戦を、ビザと生活の両面から支える。</span>
-    </h2>
-    <p class="text-center text-lg text-gray-600">
-      <span lang="en">We’re an NPO dedicated to guiding global talent in Japan.</span>
-      <span lang="ja" style="display: none;">私たちは、日本で活躍する高度人材のためのNPO法人です。</span>
+    <header class="bg-primary/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-accent">Japan Support Navi</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#navigator" class="text-gray-600 hover:text-accent transition">ビザ適格性診断</a>
+                <a href="#comparison" class="text-gray-600 hover:text-accent transition">ビザ比較</a>
+                <a href="#city-explorer" class="text-gray-600 hover:text-accent transition">居住地を探す</a>
+                <a href="#life-support" class="text-gray-600 hover:text-accent transition">生活サポート</a>
+                <a href="blog.generated.html" class="text-gray-600 hover:text-accent transition">活動報告</a>
+<a href="#survey" class="text-gray-600 hover:text-accent transition">アンケート</a>
+                            </div>
+            <img src="images/logo.avif" alt="MOSHIMOSHI" class="h-8 md:h-10">
+            <button id="mobile-menu-button" class="md:hidden p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <a href="#navigator" class="block text-center py-3 px-4 text-gray-700 hover:bg-gray-100">ビザ適格性診断</a>
+            <a href="#comparison" class="block text-center py-3 px-4 text-gray-700 hover:bg-gray-100">ビザ比較</a>
+            <a href="#city-explorer" class="block text-center py-3 px-4 text-gray-700 hover:bg-gray-100">居住地を探す</a>
+            <a href="#life-support" class="block text-center py-3 px-4 text-gray-700 hover:bg-gray-100">生活サポート</a>
+            <a href="blog.generated.html" class="block text-center py-3 px-4 text-gray-700 hover:bg-gray-100">活動報告</a>
+<a href="#survey" class="block text-center py-3 px-4 text-gray-700 hover:bg-gray-100">アンケート</a>
+                            
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">あなたの日本での挑戦を、<br class="hidden md:block" />ビザと生活の両面から支える。</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 text-gray-600">高度人材(HSP)ビザやデジタルノマドビザは複雑ですか？ご安心ください。私たちは、あなたが日本で輝くための第一歩をナビゲートするNPO法人です。</p>
+                <a href="#navigator" class="btn btn-primary text-xl">まずは無料でビザ適格性をチェック →</a>
+            </div>
+        </section>
+
+        <section id="navigator" class="py-20 bg-secondary">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">ビザ・ナビゲーター</h2>
+                <p class="section-subtitle">あなたがどのビザの対象となる可能性があるか、簡単な質問に答えるだけで診断します。これは、あなたの日本への道筋を具体化するための、信頼できる第一歩です。</p>
+
+                <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="flex border-b">
+                        <button id="hsp-tab-button" class="tab-button w-1/2 p-4 text-lg font-medium active">高度専門職(HSP)ビザ</button>
+                        <button id="nomad-tab-button" class="tab-button w-1/2 p-4 text-lg font-medium">デジタルノマドビザ</button>
+                    </div>
+
+                    <div id="hsp-checker" class="p-6 md:p-10">
+                        <div class="grid md:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-4">HSP Potential Checker</h3>
+                                <p class="mb-6 text-gray-600">あなたの学歴、職歴、年収などを入力して、高度専門職(HSP)ポイントを計算します。70点以上でビザ取得の可能性が見えてきます。</p>
+                                <form id="hsp-form" class="space-y-4">
+                                    <div class="relative">
+                                        <label for="activity_type" class="font-medium">活動類型</label>
+                                        <select id="activity_type" class="w-full mt-1 p-2 border rounded-md">
+                                            <option value="research">研究・教育</option>
+                                            <option value="tech" selected>専門・技術</option>
+                                            <option value="management">経営・管理</option>
+                                        </select>
+                                    </div>
+                                    <div class="relative">
+                                        <label for="education" class="font-medium">最終学歴</label>
+                                        <select id="education" class="w-full mt-1 p-2 border rounded-md">
+                                            <option value="0">学士未満</option>
+                                            <option value="10">学士</option>
+                                            <option value="20">修士 (MBA/MOT含む)</option>
+                                            <option value="30">博士</option>
+                                        </select>
+                                    </div>
+                                    <div class="relative">
+                                        <label for="experience" class="font-medium">関連業務の実務経験年数</label>
+                                        <select id="experience" class="w-full mt-1 p-2 border rounded-md">
+                                            <option value="0">3年未満</option>
+                                            <option value="5">3年以上</option>
+                                            <option value="10">5年以上</option>
+                                            <option value="15">7年以上</option>
+                                            <option value="20">10年以上</option>
+                                        </select>
+                                    </div>
+                                    <div class="relative">
+                                        <label for="income" class="font-medium">予定年収 (万円)</label>
+                                        <input type="number" id="income" placeholder="例: 800" class="w-full mt-1 p-2 border rounded-md">
+                                    </div>
+                                    <div class="relative">
+                                        <label for="age" class="font-medium">年齢</label>
+                                        <select id="age" class="w-full mt-1 p-2 border rounded-md">
+                                            <option value="15">29歳以下</option>
+                                            <option value="10">30-34歳</option>
+                                            <option value="5">35-39歳</option>
+                                            <option value="0">40歳以上</option>
+                                        </select>
+                                    </div>
+                                    <div class="pt-4 space-y-2">
+                                        <h4 class="font-medium">ボーナスポイント</h4>
+                                        <label class="flex items-center"><input type="checkbox" id="bonus_jp_uni" value="10" class="mr-2"> 日本の大学・大学院を卒業</label>
+                                        <label class="flex items-center"><input type="checkbox" id="bonus_jlpt_n1" value="15" class="mr-2"> 日本語能力試験(JLPT) N1</label>
+                                        <label class="flex items-center"><input type="checkbox" id="bonus_jlpt_n2" value="10" class="mr-2"> 日本語能力試験(JLPT) N2</label>
+                                        <label class="flex items-center"><input type="checkbox" id="bonus_top_uni" value="10" class="mr-2"> 世界大学ランキング上位校を卒業</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="hsp-result-container" class="text-center">
+                                <p class="text-lg mb-4">あなたのHSPスコアは...</p>
+                                <div class="chart-container">
+                                    <canvas id="hsp-chart"></canvas>
+                                </div>
+                                <div id="hsp-result-text" class="mt-6 p-4 rounded-lg bg-gray-100 min-h-[120px] flex items-center justify-center">
+                                    <p class="text-gray-600">フォームに入力してポイントを計算してください。</p>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-4">注意：本結果はシミュレーションです。最終的な認定は入国管理局の審査によります。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="nomad-checker" class="hidden p-6 md:p-10">
+                        <h3 class="text-2xl font-bold mb-4 text-center">Nomad-Ready? Check</h3>
+                        <p class="mb-8 text-gray-600 text-center max-w-2xl mx-auto">あなたが日本のデジタルノマドビザの基本要件を満たしているか、簡単な「はい／いいえ」でチェックします。</p>
+                        <div class="max-w-xl mx-auto">
+                            <form id="nomad-form" class="space-y-5">
+                                <div class="p-4 border rounded-lg">
+                                    <p class="font-semibold mb-2">1. 国籍は対象国ですか？</p>
+                                    <p class="text-sm text-gray-500 mb-2">日本と査証免除措置があり、かつ租税条約を締結している国・地域が対象です。</p>
+                                    <div class="flex space-x-4"><label><input type="radio" name="q1" value="yes"> はい</label><label><input type="radio" name="q1" value="no" checked> いいえ</label></div>
+                                </div>
+                                <div class="p-4 border rounded-lg">
+                                    <p class="font-semibold mb-2">2. 年収は1,000万円以上ですか？</p>
+                                    <p class="text-sm text-gray-500 mb-2">日本円換算での個人の年収が基準を満たす必要があります。</p>
+                                    <div class="flex space-x-4"><label><input type="radio" name="q2" value="yes"> はい</label><label><input type="radio" name="q2" value="no" checked> いいえ</label></div>
+                                </div>
+                                <div class="p-4 border rounded-lg">
+                                    <p class="font-semibold mb-2">3. リモートワーカーですか？</p>
+                                    <p class="text-sm text-gray-500 mb-2">日本の企業等との契約ではなく、海外のクライアントからの収入であることが必須です。</p>
+                                    <div class="flex space-x-4"><label><input type="radio" name="q3" value="yes"> はい</label><label><input type="radio" name="q3" value="no" checked> いいえ</label></div>
+                                </div>
+                                <div class="p-4 border rounded-lg">
+                                    <p class="font-semibold mb-2">4. 民間医療保険に加入していますか？</p>
+                                    <p class="text-sm text-gray-500 mb-2">滞在中の治療費用として1,000万円以上の補償がある保険への加入が必要です。</p>
+                                    <div class="flex space-x-4"><label><input type="radio" name="q4" value="yes"> はい</label><label><input type="radio" name="q4" value="no" checked> いいえ</label></div>
+                                </div>
+                            </form>
+                            <div id="nomad-result-text" class="mt-8 p-6 rounded-lg bg-gray-100 text-center min-h-[120px] flex items-center justify-center">
+                                <p class="text-gray-600">全ての質問に「はい」と答えると、結果が表示されます。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">HSP vs デジタルノマド</h2>
+                <p class="section-subtitle">あなたのライフプランやキャリアゴールには、どちらのビザが最適でしょうか？ここでは、二つの選択肢の主な違いを徹底比較します。この客観的な情報が、あなたの重要な意思決定をサポートします。</p>
+                <div class="overflow-x-auto bg-white rounded-xl shadow-lg p-4">
+                    <table class="w-full text-left" id="visa-comparison-table">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="p-4 font-bold w-1/4">比較項目</th>
+                                <th class="p-4 font-bold w-3/8">高度専門職ビザ (HSP)</th>
+                                <th class="p-4 font-bold w-3/8">デジタルノマドビザ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="city-explorer" class="py-20 bg-secondary">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="section-title">あなたの暮らしを、日本のどこで描きますか？</h2>
+                <p class="section-subtitle">ビザの次なるステップは、最高のロケーション選びです。文化、自然、コスト、働きやすさ…。私たちのインタラクティブなマップツールを使って、あなたの理想にぴったりの日本の都市を見つけ出しましょう。</p>
+                <a href="map.html" class="btn btn-primary text-xl">マップツールで居住地を探す →</a>
+            </div>
+        </section>
+
+        <section id="life-support" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">Life in Japan サポート</h2>
+                <p class="section-subtitle">ビザの取得はゴールではなく、スタートです。来日後の住居、銀行、医療、家族のことまで、あなたが直面するであろう課題を事前に把握し、一人ひとりに合わせた解決策を提示します。</p>
+                
+                <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-10">
+                    <h3 class="text-2xl font-bold text-center mb-2">日本での生活ニーズ調査</h3>
+                    <p class="text-center text-gray-600 mb-8">あなたが不安に感じていること、サポートが必要な項目をすべてチェックしてください。あなた専用のアクションプランを作成します。</p>
+                    <form id="needs-assessment-form">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="font-bold text-lg mb-3">🏠 住居</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center"><input type="checkbox" name="needs" value="housing_guarantor" class="mr-2"> 保証人制度が不安</label>
+                                    <label class="flex items-center"><input type="checkbox" name="needs" value="housing_short_term" class="mr-2"> 短期滞在用の物件探し</label>
+                                    <label class="flex items-center"><input type="checkbox" name="needs" value="housing_furnished" class="mr-2"> 家具付き物件を探している</label>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-3">🏦 金融・行政</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center"><input type="checkbox" name="needs" value="finance_bank_nomad" class="mr-2"> 在留カードなしでの銀行口座開設</label>
+                                    <label class="flex items-center"><input type="checkbox" name="needs" value="finance_tax" class="mr-2"> 日本での税務申告(確定申告)</label>
+                                    <label class="flex items-center"><input type="checkbox" name="needs" value="finance_phone" class="mr-2"> 携帯電話の契約</label>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-3">👨‍👩‍👧‍👦 家族</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center"><input type="checkbox" name="needs" value="family_spouse_work" class="mr-2"> 配偶者の就労</label>
+                                    <label class="flex items-center"><input type="checkbox" name="needs" value="family_school" class="mr-2"> 子供の学校・保育園探し</label>
+                                    <label class="flex items-center"><input type="checkbox" name="needs" value="family_parents" class="mr-2"> 本国から親を呼びたい(HSP)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-3">🏥 医療</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center"><input type="checkbox" name="needs" value="health_language" class="mr-2"> 日本語での病院受診が不安</label>
+                                    <label class="flex items-center"><input type="checkbox" name="needs" value="health_insurance" class="mr-2"> 医療保険の仕組みがわからない</label>
+                                    <label class="flex items-center"><input type="checkbox" name="needs" value="health_find_doctor" class="mr-2"> かかりつけ医を見つけたい</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-8">
+                            <button type="submit" class="btn btn-primary">アクションプランを見る</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="action-plan" class="mt-12 max-w-4xl mx-auto hidden">
+                    <h3 class="text-2xl font-bold text-center mb-6">あなただけの日本生活準備アクションプラン</h3>
+                    <div id="action-plan-content" class="space-y-6">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        
+<section id="about" class="py-20 bg-primary">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="section-title">Japan Support Navi について</h2>
+    <p class="section-subtitle">私たちNPO MOSHIMOSHIは、日本で挑戦したい高度人材やデジタルノマドの方々に向けて、将来的に信頼できるサポートを届けることを目指して設立された非営利法人です。</p>
+    <div class="inline-flex items-center gap-2 justify-center mb-8">
+      <span class="text-sm text-gray-500">現在の提供状況：</span>
+      <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-3 py-1 rounded-full">準備中</span>
+    </div>
+    <p class="text-sm text-gray-700 max-w-3xl mx-auto leading-relaxed mb-12">
+      現在は体制準備中の段階であり、すべてのサービスを即時に提供することはできませんが、少しずつ仲間と知見を増やしながら、必要な情報発信や相談の窓口づくりから始めています。
     </p>
-    <div class="text-center mt-8">
-      <a href="#" class="bg-teal-600 text-white py-2 px-4 rounded text-lg hover:bg-teal-700 transition">
-        <span lang="en">Check your visa eligibility →</span>
-        <span lang="ja" style="display: none;">ビザ適格性をチェック →</span>
-      </a>
+    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <p class="text-4xl mb-2">🤝</p>
+        <h4 class="font-bold text-xl mb-2">誠実さと透明性</h4>
+        <p class="text-gray-600 text-sm">利用者の立場に立った情報提供を心がけ、派手な約束ではなく、実現可能な支援から始めています。</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <p class="text-4xl mb-2">🌱</p>
+        <h4 class="font-bold text-xl mb-2">段階的な支援の実現</h4>
+        <p class="text-gray-600 text-sm">将来的にはビザ申請や生活支援なども視野に入れながら、現在は調査・ネットワーク形成・情報整理を主軸に活動中です。</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <p class="text-4xl mb-2">🔭</p>
+        <h4 class="font-bold text-xl mb-2">未来志向のネットワーク構築</h4>
+        <p class="text-gray-600 text-sm">今は小さなスタートでも、専門家や経験者とのつながりを少しずつ築きながら、共に日本での挑戦を支える力になっていきます。</p>
+      </div>
     </div>
-  </main>
+    <p class="text-xs text-gray-400 mt-12">
+      ※ 本サイトに掲載されている内容の一部は、今後の提供を目指している支援内容を含みます。
+    </p>
+  </div>
+</section>
 
-  <script>
-    function switchLanguage(lang) {
-      document.querySelectorAll("[lang='ja']").forEach(el => {
-        el.style.display = (lang === 'ja') ? '' : 'none';
-      });
-      document.querySelectorAll("[lang='en']").forEach(el => {
-        el.style.display = (lang === 'en') ? '' : 'none';
-      });
-      localStorage.setItem('preferredLang', lang);
-    }
+    </main>
+    
+    
+<section id="survey" class="py-16 bg-secondary">
+  <div class="container mx-auto max-w-3xl px-6 bg-white p-6 rounded-lg shadow">
+    <img src="images/sakura_banner.jpg" alt="MOSHIMOSHI Banner" class="w-full rounded-lg shadow mb-6">
+    <div class="rounded overflow-hidden shadow">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeBkd2XbaYaz30n9vv-4oUNYZfJhgYafMfgyCX-XvIjvwXIcg/viewform?embedded=true"
+        width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
+    </div>
+  </div>
+</section>
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const lang = localStorage.getItem('preferredLang') || 'en';
-      switchLanguage(lang);
+<footer id="contact" class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-12">
+            
+            <div class="grid md:grid-cols-3 gap-8 text-center md:text-left items-center pt-8 border-t border-gray-700">
+                <div>
+                    <img src="images/logo.avif" alt="NPO MOSHIMOSHI Logo" class="h-12 mx-auto md:mx-0 mb-4">
+                    <p class="font-bold">特定非営利活動法人 MOSHIMOSHI</p>
+                    <p class="text-sm text-gray-400">Japan Support Navi Division</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">関連リンク</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://www.moshimoshi.info/" target="_blank" class="text-gray-300 hover:text-white">公式サイト</a></li>
+                        <li><a href="https://www.npo-homepage.go.jp/npoportal/detail/021001139" target="_blank" class="text-gray-300 hover:text-white">内閣府NPO法人ポータルサイト</a></li>
+                    </ul>
+                </div>
+                <div>
+                     <h4 class="font-bold mb-4">お問い合わせ（準備中）</h4>
+                </div>
+            </div>
+            <div class="text-center text-gray-500 mt-12 pt-8 border-t border-gray-700">
+                <p>&copy; 2025 NPO MOSHIMOSHI. All Rights Reserved.</p>
+            </div>
+        </div>
+    
+
+
+
+
+
+</footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const hspData = {
+            education: { '0': 0, '10': 10, '20': 20, '30': 30 },
+            experience: { '0': 0, '5': 5, '10': 10, '15': 15, '20': 20 },
+            incomeRanges: [
+                { threshold: 1000, points: 40 }, { threshold: 900, points: 35 },
+                { threshold: 800, points: 30 }, { threshold: 700, points: 25 },
+                { threshold: 600, points: 20 }, { threshold: 500, points: 15 },
+                { threshold: 400, points: 10 }, { threshold: 300, points: 0 }
+            ],
+            age: { '15': 15, '10': 10, '5': 5, '0': 0 }
+        };
+
+        
+
+         
+        const hspForm = document.getElementById('hsp-form');
+        let hspChart = null;
+
+        function calculateHSPPoints() {
+            let totalPoints = 0;
+            const activityType = document.getElementById('activity_type').value;
+            const education = document.getElementById('education').value;
+            const experience = document.getElementById('experience').value;
+            let income = parseInt(document.getElementById('income').value, 10);
+            const age = document.getElementById('age').value;
+
+            totalPoints += hspData.education[education] || 0;
+            totalPoints += hspData.experience[experience] || 0;
+            totalPoints += hspData.age[age] || 0;
+
+            let incomePoints = 0;
+            if (!isNaN(income)) {
+                if (activityType !== 'management' && income < 300) {
+                    incomePoints = 0;
+                } else {
+                    for (const range of hspData.incomeRanges) {
+                        if (income >= range.threshold) {
+                            incomePoints = range.points;
+                            break;
+                        }
+                    }
+                }
+            }
+            totalPoints += incomePoints;
+            
+            if (activityType === 'management' && (isNaN(income) || income < 1000)) {
+                totalPoints = 0;
+            }
+
+            document.querySelectorAll('#hsp-form input[type="checkbox"]:checked').forEach(cb => {
+                totalPoints += parseInt(cb.value, 10);
+            });
+
+            return totalPoints;
+        }
+
+        function updateHSPResult() {
+            const points = calculateHSPPoints();
+            const resultTextDiv = document.getElementById('hsp-result-text');
+            let message = '';
+            let bgColor = 'bg-gray-100';
+
+            if (points >= 80) {
+                message = `<strong>素晴らしい結果です！ (${points}点)</strong><br>あなたは『特別高度人材』として、わずか1年で永住権を申請できる可能性があります。`;
+                bgColor = 'bg-green-100';
+            } else if (points >= 70) {
+                message = `<strong>おめでとうございます！ (${points}点)</strong><br>あなたは『高度専門職』として認定される可能性があります。永住権申請まで3年に短縮されるなどのメリットがあります。`;
+                bgColor = 'bg-blue-100';
+            } else {
+                message = `<strong>あと少しです！ (${points}点)</strong><br>現時点では70点に達していません。日本語能力の向上などでポイントアップが可能です。他のビザも検討しましょう。`;
+                bgColor = 'bg-yellow-100';
+            }
+            
+            resultTextDiv.innerHTML = `<p>${message}</p>`;
+            resultTextDiv.className = `mt-6 p-4 rounded-lg min-h-[120px] flex items-center justify-center text-center ${bgColor}`;
+            
+            const chartData = [points, Math.max(0, 100 - points)];
+            if (hspChart) {
+                hspChart.data.datasets[0].data = chartData;
+                hspChart.update();
+            } else {
+                const ctx = document.getElementById('hsp-chart').getContext('2d');
+                hspChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: chartData,
+                            backgroundColor: ['#008080', '#E0E0E0'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { enabled: false }
+                        },
+                        animation: {
+                            duration: 1000
+                        }
+                    }
+                });
+            }
+            updateConsultationLinks();
+        }
+        
+        hspForm.addEventListener('input', updateHSPResult);
+        
+        const hspTabButton = document.getElementById('hsp-tab-button');
+        const nomadTabButton = document.getElementById('nomad-tab-button');
+        const hspChecker = document.getElementById('hsp-checker');
+        const nomadChecker = document.getElementById('nomad-checker');
+        
+        hspTabButton.addEventListener('click', () => {
+            hspTabButton.classList.add('active');
+            nomadTabButton.classList.remove('active');
+            hspChecker.classList.remove('hidden');
+            nomadChecker.classList.add('hidden');
+            updateConsultationLinks();
+        });
+        
+        nomadTabButton.addEventListener('click', () => {
+            nomadTabButton.classList.add('active');
+            hspTabButton.classList.remove('active');
+            nomadChecker.classList.remove('hidden');
+            hspChecker.classList.add('hidden');
+            updateConsultationLinks();
+        });
+
+        const nomadForm = document.getElementById('nomad-form');
+        const nomadResultTextDiv = document.getElementById('nomad-result-text');
+
+        function checkNomadEligibility() {
+            const q1 = nomadForm.q1.value === 'yes';
+            const q2 = nomadForm.q2.value === 'yes';
+            const q3 = nomadForm.q3.value === 'yes';
+            const q4 = nomadForm.q4.value === 'yes';
+
+            let message = '';
+            let bgColor = 'bg-gray-100';
+            
+            const isEligible = q1 && q2 && q3 && q4;
+
+            if (isEligible) {
+                message = '<strong>素晴らしい！</strong><br>あなたはデジタルノマドビзаの基本要件を満たしている可能性が高いです。次のステップで詳細を確認しましょう。';
+                bgColor = 'bg-green-100';
+            } else {
+                let reasons = [];
+                if (!q1) reasons.push('国籍');
+                if (!q2) reasons.push('年収');
+                if (!q3) reasons.push('就労形態');
+                if (!q4) reasons.push('医療保険');
+                message = `<strong>残念ながら...</strong><br>現時点では「${reasons.join('、')}」の項目が要件を満たしていません。他の滞在方法も検討可能です。`;
+                bgColor = 'bg-yellow-100';
+            }
+            
+            nomadResultTextDiv.innerHTML = `<p>${message}</p>`;
+            nomadResultTextDiv.className = `mt-8 p-6 rounded-lg text-center min-h-[120px] flex items-center justify-center ${bgColor}`;
+            updateConsultationLinks();
+        }
+        
+        nomadForm.addEventListener('change', checkNomadEligibility);
+        
+        const comparisonTableBody = document.querySelector('#visa-comparison-table tbody');
+        visaComparisonData.forEach(data => {
+            const row = document.createElement('tr');
+            row.className = 'border-b hover:bg-gray-50 transition-colors duration-200';
+            row.innerHTML = `
+                <td class="p-4 font-semibold align-top relative group tooltip-trigger">
+                    ${data.item}
+                    <span class="tooltip">${data.hint}</span>
+                </td>
+                <td class="p-4 align-top">${data.hsp}</td>
+                <td class="p-4 align-top">${data.nomad}</td>
+            `;
+            comparisonTableBody.appendChild(row);
+        });
+
+        const needsForm = document.getElementById('needs-assessment-form');
+        const actionPlanDiv = document.getElementById('action-plan');
+        const actionPlanContent = document.getElementById('action-plan-content');
+
+        needsForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const checkedNeeds = Array.from(document.querySelectorAll('input[name="needs"]:checked')).map(cb => cb.value);
+
+            actionPlanContent.innerHTML = '';
+            if (checkedNeeds.length > 0) {
+                checkedNeeds.forEach(needKey => {
+                    const need = supportMatrix[needKey];
+                    if(need) {
+                        const card = document.createElement('div');
+                        card.className = 'bg-white p-6 rounded-lg shadow-md border-l-4 border-accent';
+                        
+                        let vendorHtml = '';
+                        if (need.vendors && need.vendors.length > 0) {
+                            vendorHtml += '<h5 class="font-semibold mt-4 mb-2 text-gray-800">推奨業者・サービス</h5>';
+                            vendorHtml += '<ul class="space-y-3 list-disc list-inside text-sm">';
+                            need.vendors.forEach(vendor => {
+                                vendorHtml += `<li><a href="${vendor.website}" target="_blank" class="text-accent hover:underline font-medium">${vendor.name}</a>: ${vendor.description}</li>`;
+                            });
+                            vendorHtml += '</ul>';
+                        }
+
+                        card.innerHTML = `
+                            <h4 class="font-bold text-xl mb-2">${need.title}</h4>
+                            <p class="text-gray-700">${need.solution}</p>
+                            ${vendorHtml}
+                        `;
+                        actionPlanContent.appendChild(card);
+                    }
+                });
+                actionPlanDiv.classList.remove('hidden');
+                 actionPlanDiv.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                actionPlanDiv.classList.add('hidden');
+                // Using a custom modal/notification would be better than an alert in a real app.
+                console.warn('サポートが必要な項目を1つ以上選択してください。');
+            }
+        });
+        
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        const consultationLinkHeader = document.getElementById('consultation-link-header');
+        const consultationLinkFooter = document.getElementById('consultation-link-footer');
+        const consultationLinkMobile = document.getElementById('consultation-link-mobile');
+
+        function updateConsultationLinks() {
+            const hspTabActive = hspTabButton.classList.contains('active');
+            let params;
+
+            if (hspTabActive) {
+                const points = calculateHSPPoints();
+                params = new URLSearchParams({ source: 'hsp', points: points }).toString();
+            } else {
+                const q1 = nomadForm.q1.value;
+                const q2 = nomadForm.q2.value;
+                const q3 = nomadForm.q3.value;
+                const q4 = nomadForm.q4.value;
+                const eligible = (q1 === 'yes' && q2 === 'yes' && q3 === 'yes' && q4 === 'yes');
+                params = new URLSearchParams({ source: 'nomad', eligible: eligible? 'yes' : 'no' }).toString();
+            }
+
+            const baseUrl = 'consultation.html';
+            const urlWithParams = `${baseUrl}?${params}`;
+            consultationLinkHeader.href = urlWithParams;
+            consultationLinkFooter.href = urlWithParams;
+            consultationLinkMobile.href = urlWithParams;
+        }
+
+        updateHSPResult();
+        checkNomadEligibility();
     });
-  </script>
+    </script>
+
+<script src="main.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const menuButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  if (menuButton && mobileMenu) {
+    menuButton.addEventListener("click", function () {
+      if (mobileMenu.classList.contains("hidden")) {
+        mobileMenu.classList.remove("hidden");
+      } else {
+        mobileMenu.classList.add("hidden");
+      }
+    });
+
+    // モバイルメニュー内のリンクをクリックしたら閉じる
+    const menuLinks = mobileMenu.querySelectorAll("a");
+    menuLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+      });
+    });
+  }
+});
+</script>
+
 </body>
 </html>
