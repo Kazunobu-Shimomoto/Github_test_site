@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>活動報告 | MOSHIMOSHI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    body {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      background-color: #FDFBF8;
+      color: #383838;
+    }
+    .text-accent { color: #008080; }
+    .bg-secondary { background-color: #F5F1EB; }
+  </style>
+</head>
+<body>
+
+  <header class="bg-white shadow sticky top-0 z-50">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold text-accent">Japan Support Navi</a>
+      <div class="hidden md:flex space-x-6">
+        <a href="index.html#navigator" class="text-gray-600 hover:text-accent transition">ビザ診断</a>
+        <a href="index.html#comparison" class="text-gray-600 hover:text-accent transition">ビザ比較</a>
+        <a href="index.html#life-support" class="text-gray-600 hover:text-accent transition">生活サポート</a>
+        <a href="blog.generated.html" class="text-gray-600 hover:text-accent transition font-bold">活動報告</a>
+        <a href="index.html#about" class="text-gray-600 hover:text-accent transition">私たちについて</a>
+        <a href="index.html#survey" class="text-gray-600 hover:text-accent transition">アンケート</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <h1 class="text-3xl font-bold text-center mb-10">活動報告</h1>
+    <div id="blog-container" class="space-y-10">
+      <p class="text-center text-sm text-gray-400">活動報告を読み込み中です...</p>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white">
+    <div class="container mx-auto px-6 py-12 text-center">
+      <p class="text-lg font-semibold mb-2">お問い合わせ（リンクなし） ただいま準備中</p>
+      <p class="text-sm text-gray-400 mt-4">&copy; 2025 Japan Support Navi. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("https://opensheet.elk.sh/1uNQQbNxd6-48OwUwSCry3yqMk2F8giuMQm5XVe5QRrM/Form Responses 1")
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById("blog-container");
+          container.innerHTML = "";
+          data.reverse().forEach(entry => {
+            const title = entry["活動タイトル"] || entry["title"] || "タイトル未設定";
+            const body = entry["内容"] || entry["body"] || "";
+            const time = entry["Timestamp"] || "";
+            const article = document.createElement("article");
+            article.className = "bg-white p-6 rounded-lg shadow hover:shadow-lg transition";
+            article.innerHTML = `
+              <p class="text-xs text-gray-400 mb-2">${time}</p>
+              <h2 class="text-xl font-semibold mb-2 text-accent">${title}</h2>
+              <p class="text-gray-700 text-sm whitespace-pre-line leading-relaxed">${body}</p>
+            `;
+            container.appendChild(article);
+          });
+        });
+  });
+  </script>
+</body>
+</html>
