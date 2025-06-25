@@ -113,12 +113,12 @@
                 <a href="#about" class="text-gray-600 hover:text-accent transition">私たちについて</a>
                 <a href="blog.html" class="text-gray-600 hover:text-accent transition">活動報告</a>
             
-<div class="hidden md:flex items-center space-x-4 ml-6">
-  <button onclick="switchLanguage('en')" class="text-sm text-gray-600 hover:text-accent">English</button>
-  <span class="text-gray-400">|</span>
-  <button onclick="switchLanguage('ja')" class="text-sm text-gray-600 hover:text-accent">日本語</button>
-</div>
-
+    <div class="hidden md:flex items-center space-x-4 ml-6">
+      <button onclick="switchLanguage('en')" class="text-sm text-gray-600 hover:text-accent">English</button>
+      <span class="text-gray-400">|</span>
+      <button onclick="switchLanguage('ja')" class="text-sm text-gray-600 hover:text-accent">日本語</button>
+    </div>
+    
             <img src="images/logo.avif" alt="MOSHIMOSHI" class="h-8 md:h-10">
             <button id="mobile-menu-button" class="md:hidden p-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
@@ -138,16 +138,16 @@
     <main>
         <section id="hero" class="py-20 md:py-32">
             <div class="container mx-auto px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight"><span lang='en'>Supporting your journey in Japan — from visas to everyday life.</span><span lang='ja' class='hidden'>あなたの日本での挑戦を、<br class='hidden md:block' />ビザと生活の両面から支える。</span></h1>
-                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 text-gray-600"><span lang='en'>HSP or Digital Nomad visa sound complicated? Don’t worry — we’re here to guide your first steps to success in Japan.</span><span lang='ja' class='hidden'>高度人材(HSP)ビザやデジタルノマドビザは複雑ですか？ご安心ください。私たちは、あなたが日本で輝くための第一歩をナビゲートするNPO法人です。</span></p>
-                <a href="#navigator" class="btn btn-primary text-xl"><span lang='en'>Start your free visa eligibility check →</span><span lang='ja' class='hidden'>まずは無料でビザ適格性をチェック →</span></a>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight"><span lang='en'>Supporting your journey in Japan —<br class='hidden md:block' /> from visas to everyday life.</span><span lang='ja' class='hidden'>あなたの日本での挑戦を、<br class='hidden md:block' />ビザと生活の両面から支える。</span></h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 text-gray-600"><span lang='en'>Are HSP or Digital Nomad visas confusing? Don’t worry — we’re here as an NPO to help you shine in Japan.</span><span lang='ja' class='hidden'>高度人材(HSP)ビザやデジタルノマドビザは複雑ですか？ご安心ください。私たちは、あなたが日本で輝くための第一歩をナビゲートするNPO法人です。</span></p>
+                <a href="#navigator" class="btn btn-primary text-xl"><span lang='en'>Start with a free visa eligibility check →</span><span lang='ja' class='hidden'>まずは無料でビザ適格性をチェック →</span></a>
             </div>
         </section>
 
         <section id="navigator" class="py-20 bg-secondary">
             <div class="container mx-auto px-6">
                 <h2 class="section-title"><span lang="en">Visa Navigator</span><span lang="ja" class="hidden">ビザ・ナビゲーター</span></h2>
-                <p class="section-subtitle"><span lang="en">Answer a few questions to find out which visa you may be eligible for. It’s a trusted first step to map your journey to Japan.</span><span lang="ja" class="hidden">あなたがどのビザの対象となる可能性があるか、簡単な質問に答えるだけで診断します。これは、あなたの日本への道筋を具体化するための、信頼できる第一歩です。</span></p>
+                <p class="section-subtitle"><span lang="en">Answer a few simple questions to see which visa you may qualify for. It’s your first reliable step toward living in Japan.</span><span lang="ja" class="hidden">あなたがどのビザの対象となる可能性があるか、簡単な質問に答えるだけで診断します。これは、あなたの日本への道筋を具体化するための、信頼できる第一歩です。</span></p>
 
                 <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="flex border-b">
@@ -822,16 +822,36 @@
 
 <script src="main.js"></script>
 
+    
+    
+
 <script>
 function switchLanguage(lang) {
-  document.querySelectorAll("[lang='ja']").forEach(el => {
-    el.classList.toggle('hidden', lang !== 'ja');
+  const jaElems = document.querySelectorAll("[lang='ja']");
+  const enElems = document.querySelectorAll("[lang='en']");
+
+  let foundVisibleJA = false;
+
+  jaElems.forEach(el => {
+    if (lang === 'ja') {
+      el.classList.remove('hidden');
+      foundVisibleJA = true;
+    } else {
+      el.classList.add('hidden');
+    }
   });
-  document.querySelectorAll("[lang='en']").forEach(el => {
-    el.classList.toggle('hidden', lang !== 'en');
+
+  enElems.forEach(el => {
+    if (lang === 'en' || !foundVisibleJA) {
+      el.classList.remove('hidden');
+    } else {
+      el.classList.add('hidden');
+    }
   });
+
   localStorage.setItem('preferredLang', lang);
 }
+
 document.addEventListener("DOMContentLoaded", function () {
   const lang = localStorage.getItem('preferredLang') || 'en';
   switchLanguage(lang);
