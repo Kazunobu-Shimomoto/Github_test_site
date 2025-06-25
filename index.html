@@ -367,26 +367,13 @@
       </div>
     </div>
     <p class="text-xs text-gray-400 mt-12">
-      ※ 本サイトに掲載されている内容の一部は、今後の提供を目指している支援内容を含みます。現在の提供状況については、お気軽にご相談ください。
+      ※ 本サイトに掲載されている内容の一部は、今後の提供を目指している支援内容を含みます。
     </p>
   </div>
 </section>
 
     </main>
     
-    
-<section id="news" class="py-16 bg-secondary">
-  <div class="container mx-auto px-6 text-center">
-    <h2 class="section-title">最新のお知らせ</h2>
-    <p class="section-subtitle mb-8">活動の進捗やお知らせをこちらに掲載していきます。</p>
-    <div class="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto text-left">
-      <h3 class="font-semibold text-lg mb-2">📢 2025年6月：Webサイトを初公開しました</h3>
-      <p class="text-gray-600 text-sm mb-4">MOSHIMOSHIの活動を広く知っていただくため、サポートナビWebサイトを立ち上げました。</p>
-      <a href="blog.html" class="text-accent font-medium hover:underline text-sm">→ お知らせ一覧を見る</a>
-    </div>
-  </div>
-</section>
-
 <footer id="contact" class="bg-gray-800 text-white">
         <div class="container mx-auto px-6 py-12">
             
@@ -443,123 +430,6 @@
             age: { '15': 15, '10': 10, '5': 5, '0': 0 }
         };
 
-        const visaComparisonData = [
-            { item: '主な対象者', hsp: '日本国内の企業等と雇用契約等を結ぶ、高度な専門職・経営者。', nomad: '日本国外の企業等との契約に基づき、リモートで業務を行うワーカー。', hint: '雇用主が日本国内か海外かが最大の分岐点。' },
-            { item: '在留期間', hsp: '<strong>5年</strong> (1号) / <strong>無期限</strong> (2号)', nomad: '<strong>6ヶ月</strong>（更新は不可。出国後6ヶ月経てば再申請可能）', hint: '長期的な滞在や日本への定住を目指すならHSP。まずはお試しで滞在してみたいならデジタルノマド。' },
-            { item: '永住権への道', hsp: '<strong>最短1年</strong> (80点以上) または <strong>3年</strong> (70点以上) で申請資格を得られる。', nomad: '<strong>なし</strong>。このビザでの滞在は永住許可の居住歴に算入されない。', hint: '日本に永住したい、という強い希望があるならHSP一択。' },
-            { item: '就労の自由度', hsp: '<strong>低い</strong>。許可された所属機関での活動に限定される。転職時はビザの再申請が必須。', nomad: '<strong>高い</strong>。海外のクライアントであれば自由に仕事ができる。', hint: '自由な働き方を維持したいフリーランスはデジタルノマド。一つの企業で安定したキャリアを築きたいならHSP。' },
-            { item: '収入要件', hsp: 'ポイント計算上、最低でも<strong>年収300万円以上</strong>が必要。高年収ほど高ポイント。', nomad: '<strong>年収1,000万円以上</strong>が絶対条件。', hint: '年収が非常に高い場合は両方の選択肢があるが、300万～1,000万円未満の層はHSPが主対象。' },
-            { item: '家族帯同', hsp: '配偶者、子が可能。さらに一定の条件下で<strong>親</strong>や<strong>家事使用人</strong>も帯同可能。', nomad: '配偶者、子のみ。', hint: '親のサポート（育児など）を必要とする場合はHSPが必須。' },
-            { item: '配偶者の就労', hsp: '一定の条件下で<strong>フルタイム就労が可能</strong>。', nomad: '<strong>原則として不可</strong>。資格外活動許可も認められない。', hint: '夫婦共働きを希望する、または配偶者のキャリアも重視するならHSP。' },
-            { item: '行政手続き', hsp: '<strong>在留カードが交付</strong>され、<strong>住民登録</strong>が可能。社会保障に加入。', nomad: '<strong>在留カードは不交付</strong>。<strong>住民登録は不可</strong>。国民健康保険にも加入できない。', hint: '生活基盤の安定と行政サービスを重視するならHSP。身軽さを取るならデジタルノマドだが、相応の不便は覚悟が必要。' }
-        ];
-
-        const supportMatrix = {
-            housing_guarantor: {
-                title: '保証人制度が不安',
-                solution: '日本の賃貸契約では連帯保証人が必要になることが多いですが、保証人がいない外国人向けに専門のサービスがあります。保証会社を利用するか、法人契約が可能な社宅代行サービスが有効です。',
-                vendors: [
-                    { name: 'GTN（グローバルトラストネットワークス）', description: '外国人のための生活総合支援企業。保証人サービスを主軸に、不動産仲介や携帯電話サービスも提供。', website: 'https://www.gtn.co.jp/business/realestate/rent-guarantor' },
-                    { name: 'マイナビBiz（社宅代行）', description: '企業が法人として物件を契約するため、個人の保証人が不要になります。入居後の多言語サポートも充実。', website: 'https://biz.mynavi.jp/' },
-                    { name: 'Wagaya Japan（社宅代行）', description: '全国対応の外国人向け社宅サービス。ライフラインの手続き代行など、包括的なサポートを提供。', website: 'https://wagaya-japan.com/jp/' }
-                ]
-            },
-            housing_short_term: {
-                title: '短期滞在用の物件探し',
-                solution: 'デジタルノマドや、来日直後の仮住まいとして、家具・家電付きの短期賃貸物件が便利です。敷金・礼金が不要な場合が多く、初期費用を抑えられます。',
-                vendors: [
-                    { name: 'レオパレス21', description: '最短30日から契約可能な短期プランが豊富。家具・家電付きで、光熱費込みのプランも選択可能。', website: 'https://www.leopalace21.com/en' },
-                    { name: 'Tokyo Family Stays', description: 'デジタルノマドや家族連れに特化した家具付きアパート。月単位の契約が可能。', website: 'https://www.tokyofamilystays.com/en' },
-                    { name: 'Best-Estate.jp', description: '外国人専門の賃貸サイト。短期滞在向けの物件も扱っており、海外からの契約にも対応。', website: 'https://www.best-estate.jp/' }
-                ]
-            },
-            housing_furnished: {
-                title: '家具付き物件を探している',
-                solution: 'スーツケース一つで新生活を始められる家具付き物件は、特に短期滞在者や初期費用を抑えたい方におすすめです。専門の不動産サイトで効率的に探せます。',
-                vendors: [
-                    { name: 'Real Estate Japan', description: '日本最大級の外国人向け不動産情報ポータル。家具付き物件も多数掲載。', website: 'https://realestate.co.jp/en' },
-                    { name: 'PLAZA HOMES', description: '都心部の高級物件を中心に、家具付きのサービスアパートメントも取り扱う。', website: 'https://www.realestate-tokyo.com/' },
-                    { name: 'GaijinPot Apartments', description: '外国人向けに特化した物件情報サイト。家具付き（Furnished）での絞り込み検索が可能。', website: 'https://apartments.gaijinpot.com/en' }
-                ]
-            },
-            finance_bank_nomad: {
-                title: '在留カードなしでの銀行口座開設',
-                solution: 'デジタルノマドビザでは在留カードが交付されないため、日本の一般的な銀行口座の開設は非常に困難です。国際的な送金サービスやフィンテックを活用することが現実的な解決策となります。',
-                vendors: [
-                    { name: 'Wise（ワイズ）', description: '非居住者でも日本円（JPY）の口座情報を取得し、給与や報酬の受け取りが可能。海外送金も低コスト。', website: 'https://wise.com/jp/' },
-                    { name: 'SMBC信託銀行プレスティア', description: '非居住者向けのサービスが充実していますが、口座開設は原則として居住者である必要があります。出国前に相談するのが良いでしょう。', website: 'https://www.smbctb.co.jp/' }
-                ]
-            },
-            finance_tax: {
-                title: '日本での税務申告',
-                solution: '国際的な収入がある場合や、日本の税制に不慣れな場合、専門家である税理士への相談が不可欠です。特に英語対応可能な事務所を選ぶとスムーズです。',
-                vendors: [
-                    { name: 'Otani Accounting Office', description: '38年以上の実績を持つ外国人・外資系企業専門の会計事務所。個人事業主の確定申告にも対応。', website: 'https://otaniaccounting.com/' },
-                    { name: 'Probitas', description: '駐在員の個人確定申告や不動産オーナー向けの税務に強い。迅速な英語対応に定評あり。', website: 'https://probitas.jp/en/' },
-                    { name: 'Skywalk Tax and Accounting', description: 'SlackなどのITツールを活用したコミュニケーションが特徴。初回相談は無料。', website: 'https://www.skywalk-tax.com/' }
-                ]
-            },
-            finance_phone: {
-                title: '携帯電話の契約',
-                solution: '長期の携帯電話契約には在留カードや日本の銀行口座が必要な場合が多いです。在留カードがないデジタルノマドや、来日直後の方は、外国人向けのプリペイドSIMや短期契約プランが便利です。',
-                vendors: [
-                    { name: 'Mobal', description: '在留カード不要で契約可能。パスポートのみで購入でき、音声通話付きプランも選択可能。英語サポートが充実。', website: 'https://www.mobal.com/japan-sim-card/' },
-                    { name: 'Sakura Mobile', description: 'NTTドコモ回線を利用した安定した通信が魅力。ポケットWiFiのレンタルも可能。', website: 'https://www.sakuramobile.jp/' },
-                    { name: '楽天モバイル', description: '（HSP向け）在留カード取得後におすすめ。データ無制限プランがあり、コストパフォーマンスが高い。', website: 'https://network.mobile.rakuten.co.jp/' }
-                ]
-            },
-            family_spouse_work: {
-                title: '配偶者の就労',
-                solution: '高度専門職(HSP)ビザ保持者の配偶者は、学歴・職歴要件が緩和され、フルタイムでの就労が可能です。一方、デジタルノマドの配偶者は原則就労できません。キャリアを継続・再開するためには、国際的な人材紹介会社への登録が有効です。',
-                vendors: [
-                    { name: 'Robert Walters Japan', description: '外資系・グローバル企業に強い大手人材紹介会社。バイリンガル人材の求人が豊富。', website: 'https://www.robertwalters.co.jp/en/' },
-                    { name: 'Michael Page Japan', description: '世界的なネットワークを持つ大手人材紹介会社。多様な業界・職種をカバー。', website: 'https://www.michaelpage.co.jp/en' }
-                ]
-            },
-            family_school: {
-                title: '子供の学校・保育園探し',
-                solution: '帯同するお子様の教育環境は最重要事項の一つです。東京には、様々な教育カリキュラムを提供する質の高いインターナショナルスクールが多数存在します。',
-                vendors: [
-                    { name: 'The British School in Tokyo', description: '英国式カリキュラムに基づき、質の高い教育を提供。都心に複数のキャンパスを持つ。', website: 'https://www.bst.ac.jp/' },
-                    { name: 'American School in Japan (ASIJ)', description: '1902年設立の歴史ある学校。米国式カリキュラムをベースにしている。', website: 'https://www.asij.ac.jp/' },
-                    { name: 'K. International School Tokyo (KIST)', description: '国際バカロレア(IB)認定校。学術レベルの高さに定評がある。', website: 'https://www.kist.ed.jp/' }
-                ]
-            },
-            family_parents: {
-                title: '本国から親を呼びたい(HSP)',
-                solution: '高度専門職(HSP)ビザ保持者は、世帯年収800万円以上などの一定の条件下で、育児や介護を目的として本国から親を帯同させることが可能です。この手続きは複雑なため、ビザ専門の行政書士への相談が不可欠です。',
-                vendors: [
-                    { name: 'さむらい行政書士法人', description: '高度専門職ビザを含む、家族のビザ問題に関する豊富な経験を持つ。', website: 'https://samurai-law.com/shurou/' },
-                    { name: 'ACROSEED', description: '全国対応可能で、ビザ申請に関する初回相談は無料。', website: 'https://www.visajapan.jp/' }
-                ]
-            },
-            health_language: {
-                title: '日本語での病院受診が不安',
-                solution: '言語の壁は医療における大きな不安要素です。幸い、日本には多言語対応可能な医療機関を検索できる公的なウェブサイトや、認証制度があります。これらを活用することで、安心して受診できる病院を見つけられます。',
-                vendors: [
-                    { name: '厚生労働省 医療情報ネット（ナビイ）', description: '全国の医療機関を対応言語や診療科目で検索できる公式ウェブサイト。', website: 'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryou/teikyouseido/index.html' },
-                    { name: 'JMIP（外国人患者受入れ医療機関認証制度）', description: '外国人患者の受け入れ体制が整っていると認証された医療機関のリストを検索可能。', website: 'http://jmip.jme.or.jp/search.php' },
-                    { name: '東京ミッドタウンクリニック', description: '総合内科のオンライン診療を英語で提供。来院不要で相談が可能。', website: 'https://www.tokyomidtown-mc.jp/en/' }
-                ]
-            },
-            health_insurance: {
-                title: '医療保険の仕組みがわからない',
-                solution: '日本の医療保険制度は、在留資格によって加入するものが異なります。HSPビザ保持者は国民健康保険または会社の社会保険に加入しますが、デジタルノマドは加入できず、高額補償の民間医療保険への加入が義務付けられています。',
-                vendors: [
-                    { name: '厚生労働省（HSP向け）', description: '日本の公的医療保険制度（国民健康保険・社会保険）の概要を確認できます。', website: 'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryouhoken/index.html' },
-                    { name: '外務省（デジタルノマド向け）', description: '民間海外旅行保険の要件（治療費用補償額1,000万円以上）を確認できます。', website: 'https://www.mofa.go.jp/mofaj/ca/fna/pagew_000001_00494.html' }
-                ]
-            },
-            health_find_doctor: {
-                title: 'かかりつけ医を見つけたい',
-                solution: '信頼できるかかりつけ医を見つけることは、日本での安心した生活の基盤です。英語対応可能なクリニックや、オンライン診療を活用することで、継続的な健康管理がしやすくなります。',
-                vendors: [
-                    { name: 'JMIP認証医療機関', description: '外国人受け入れ体制が整っているため、継続的なケアを相談しやすい。', website: 'http://jmip.jme.or.jp/search.php' },
-                    { name: '医療情報ネット（ナビイ）', description: '「場所」と「対応言語」で絞り込むことで、近所の通いやすいクリニックを探せます。', website: 'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryou/teikyouseido/index.html' },
-                    { name: 'Interpreters Unlimited', description: '専門医が日本語のみの場合でも、プロの医療通訳サービスを利用することで、正確なコミュニケーションが可能です。', website: 'https://www.interpreters.com/japanese-interpretation-services/' }
-                ]
-            }
-        };
         
         const hspForm = document.getElementById('hsp-form');
         let hspChart = null;
